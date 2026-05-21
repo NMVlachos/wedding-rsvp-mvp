@@ -1,0 +1,1317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>John &amp; Jane — September 19, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory:        #f6f1e7;
+    --ivory-soft:   #f1ead9;
+    --paper:        #fbf7ed;
+    --ink:          #2b2a26;
+    --ink-soft:     #5b5750;
+    --ink-faint:    #8a857c;
+    --rule:         #ddd4bf;
+    --rule-soft:    #e7dfc9;
+    --sage:         #7a8a72;
+    --sage-deep:    #5d6e57;
+    --sage-tint:    #e3e7dd;
+
+    --display: "Cormorant Garamond", "Garamond", serif;
+    --body:    "Lora", Georgia, serif;
+    --ui:      "Work Sans", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+  input, select, textarea { font-family: inherit; color: inherit; }
+
+  /* ---------- Type ---------- */
+  .display    { font-family: var(--display); font-weight: 400; letter-spacing: -0.01em; }
+  .eyebrow {
+    font-family: var(--ui);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+  }
+  .script {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* ---------- App scaffolding ---------- */
+  #root { min-height: 100vh; }
+
+  /* ---------- LOGIN ---------- */
+  .login-wrap {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 48px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .login-wrap::before,
+  .login-wrap::after {
+    content: "";
+    position: absolute;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, var(--sage-tint), transparent 65%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .login-wrap::before { top: -180px; left: -180px; }
+  .login-wrap::after  { bottom: -200px; right: -160px; }
+
+  .login-card {
+    position: relative;
+    width: min(560px, 100%);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 64px 56px 56px;
+    text-align: center;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 30px 60px -30px rgba(60,55,40,0.18);
+  }
+  .login-card::before,
+  .login-card::after {
+    content: "";
+    position: absolute;
+    left: 24px; right: 24px;
+    height: 1px;
+    background: var(--rule);
+  }
+  .login-card::before { top: 16px; }
+  .login-card::after  { bottom: 16px; }
+
+  .ornament {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px;
+    color: var(--sage);
+    margin-bottom: 18px;
+  }
+  .ornament .line {
+    width: 60px; height: 1px; background: var(--sage);
+    opacity: 0.55;
+  }
+  .ornament .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--sage);
+  }
+
+  .welcome { font-size: 13px; letter-spacing: 0.4em; color: var(--ink-faint); text-transform: uppercase; }
+  .couple {
+    font-family: var(--display);
+    font-size: 76px;
+    line-height: 1.0;
+    margin: 22px 0 14px;
+    font-weight: 400;
+  }
+  .couple .amp { font-style: italic; color: var(--sage-deep); font-weight: 400; padding: 0 6px; }
+  .when {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  .where {
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  .divider-row {
+    display: flex; align-items: center; gap: 14px;
+    margin: 32px 0 28px;
+    color: var(--ink-faint);
+  }
+  .divider-row .rule { flex: 1; height: 1px; background: var(--rule); }
+  .divider-row .label {
+    font-family: var(--ui);
+    font-size: 10px; letter-spacing: 0.36em; text-transform: uppercase;
+  }
+
+  form.login-form { display: grid; gap: 18px; text-align: left; }
+  .field { display: grid; gap: 6px; }
+  .field label {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .field input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 8px 2px 10px;
+    font-family: var(--display);
+    font-size: 22px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field input:focus { border-bottom-color: var(--sage-deep); }
+  .field input::placeholder { color: var(--ink-faint); font-style: italic; }
+
+  .btn {
+    background: var(--ink);
+    color: var(--ivory);
+    border: 1px solid var(--ink);
+    padding: 16px 28px;
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .btn:hover { background: var(--sage-deep); border-color: var(--sage-deep); }
+  .btn:active { transform: translateY(1px); }
+  .btn.full { width: 100%; }
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .btn.ghost:hover { background: var(--ink); color: var(--ivory); }
+
+  .login-error {
+    color: #8a3a2b;
+    background: #f4e5dd;
+    border: 1px solid #e3c8b8;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  .hint {
+    margin-top: 22px;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  /* ---------- NAVBAR ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(246, 241, 231, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .nav-brand {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav-brand .amp { font-style: italic; color: var(--sage-deep); }
+  .nav-links {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .nav-link {
+    background: none; border: none;
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 10px 12px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-link:hover { color: var(--ink); }
+  .nav-link.active {
+    color: var(--sage-deep);
+    border-bottom-color: var(--sage-deep);
+  }
+  .nav-rsvp {
+    margin-left: 8px;
+    padding: 10px 18px;
+    background: var(--sage-deep);
+    color: var(--ivory);
+    border: 1px solid var(--sage-deep);
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .nav-rsvp:hover { background: var(--ink); border-color: var(--ink); }
+  .nav-logout {
+    background: none; border: none;
+    color: var(--ink-faint);
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 8px;
+  }
+  .nav-logout:hover { color: var(--ink); }
+
+  /* ---------- Sections ---------- */
+  section.block {
+    padding: 120px 32px;
+    max-width: 1180px;
+    margin: 0 auto;
+    scroll-margin-top: 80px;
+  }
+  section.block.tight { padding: 96px 32px; }
+  section.block.bleed { max-width: none; padding-left: 0; padding-right: 0; }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .section-head .eyebrow { margin-bottom: 14px; display: inline-block; }
+  .section-head h2 {
+    font-family: var(--display);
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .section-head h2 .it { font-style: italic; color: var(--sage-deep); font-weight: 400; }
+  .section-head .sub {
+    margin-top: 18px;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 19px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 140px 32px 100px;
+    position: relative;
+  }
+  .hero .couple-big {
+    font-family: var(--display);
+    font-size: clamp(72px, 11vw, 152px);
+    line-height: 0.95;
+    margin: 18px 0 18px;
+  }
+  .hero .couple-big .amp {
+    font-style: italic;
+    color: var(--sage-deep);
+    padding: 0 6px;
+  }
+  .hero .meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 22px;
+  }
+  .hero .meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage); }
+  .hero-image {
+    margin-top: 64px;
+    max-width: 980px;
+    margin-left: auto; margin-right: auto;
+    padding: 0 32px;
+  }
+  .image-placeholder {
+    background:
+      repeating-linear-gradient(45deg, var(--ivory-soft) 0 12px, var(--paper) 12px 24px);
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-faint);
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+  }
+  .image-placeholder.hero-ph { aspect-ratio: 16/9; }
+  .image-placeholder.square  { aspect-ratio: 1/1; }
+  .image-placeholder.portrait { aspect-ratio: 3/4; }
+  .image-placeholder.wide    { aspect-ratio: 21/9; }
+
+  /* Section dividers */
+  .section-rule {
+    display: flex; align-items: center; justify-content: center; gap: 18px;
+    color: var(--sage);
+    margin: 8px auto 0;
+  }
+  .section-rule .line { width: 80px; height: 1px; background: var(--sage); opacity: 0.6; }
+  .section-rule .diamond {
+    width: 8px; height: 8px; background: var(--sage);
+    transform: rotate(45deg);
+  }
+
+  /* Our Story */
+  .story {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .story p {
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+  .story p + p { margin-top: 18px; }
+  .story .sig {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--ink);
+    font-size: 26px;
+    margin-top: 28px;
+  }
+  .story .photo { padding-right: 0; }
+
+  /* Schedule */
+  .schedule {
+    display: grid;
+    gap: 0;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .schedule .row {
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .schedule .row:first-child { border-top: 1px solid var(--rule); }
+  .schedule .time {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--sage-deep);
+    font-size: 24px;
+  }
+  .schedule .what h4 {
+    margin: 0 0 6px;
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 500;
+  }
+  .schedule .what p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+    font-style: italic;
+  }
+  .schedule .loc {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-align: right;
+  }
+
+  /* Venue */
+  .venue {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .venue h3 {
+    font-family: var(--display);
+    font-size: 44px;
+    font-weight: 400;
+    margin: 0 0 8px;
+  }
+  .venue .addr {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  .venue p { color: var(--ink-soft); }
+  .venue .travel-list {
+    margin-top: 28px;
+    display: grid;
+    gap: 14px;
+  }
+  .travel-list .item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 18px;
+    padding: 14px 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .travel-list .item:last-child { border-bottom: 1px solid var(--rule-soft); }
+  .travel-list .k {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    padding-top: 3px;
+  }
+  .travel-list .v { color: var(--ink); }
+
+  /* Accommodations */
+  .stays {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .stay {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .stay .ph { aspect-ratio: 4/3; }
+  .stay .tag {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+  }
+  .stay h4 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 500;
+  }
+  .stay p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .stay .meta {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule-soft);
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .stay .meta .rate { color: var(--ink); }
+
+  /* Dress code */
+  .dress-band {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 96px 32px;
+  }
+  .dress {
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .dress h3 {
+    font-family: var(--display);
+    font-size: 48px;
+    font-weight: 400;
+    margin: 0 0 18px;
+  }
+  .dress h3 .it { font-style: italic; color: var(--sage-deep); }
+  .dress p { color: var(--ink-soft); font-size: 17px; }
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+  }
+  .swatch {
+    aspect-ratio: 1;
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .swatch span {
+    position: absolute;
+    bottom: -22px; left: 0; right: 0;
+    text-align: center;
+    font-family: var(--ui);
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* Registry */
+  .registry {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .reg-card {
+    border: 1px solid var(--rule);
+    padding: 36px 28px;
+    text-align: center;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+  }
+  .reg-card .mark {
+    width: 56px; height: 56px;
+    border: 1px solid var(--sage);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--sage-deep);
+    font-size: 24px;
+  }
+  .reg-card h4 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 500;
+  }
+  .reg-card p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  /* RSVP */
+  .rsvp-band {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 120px 32px;
+  }
+  .rsvp-band .section-head h2 { color: var(--ivory); }
+  .rsvp-band .section-head h2 .it { color: #c7d3bd; }
+  .rsvp-band .section-head .sub { color: rgba(246,241,231,0.7); }
+  .rsvp-band .eyebrow { color: #c7d3bd; }
+  .rsvp-band .section-rule .line { background: #c7d3bd; }
+  .rsvp-band .section-rule .diamond { background: #c7d3bd; }
+
+  .rsvp {
+    max-width: 720px;
+    margin: 0 auto;
+    display: grid;
+    gap: 36px;
+  }
+  .rsvp-greeting {
+    text-align: center;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 24px;
+    color: rgba(246,241,231,0.8);
+    margin-bottom: -8px;
+  }
+
+  .q {
+    display: grid;
+    gap: 14px;
+  }
+  .q-label {
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #c7d3bd;
+  }
+  .q-help {
+    font-family: var(--display);
+    font-style: italic;
+    color: rgba(246,241,231,0.65);
+    font-size: 16px;
+    margin-top: -8px;
+  }
+
+  .choice-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .choice {
+    flex: 1 1 220px;
+    background: transparent;
+    color: var(--ivory);
+    border: 1px solid rgba(246,241,231,0.25);
+    padding: 22px 24px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .choice:hover { border-color: rgba(246,241,231,0.6); }
+  .choice .radio {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(246,241,231,0.5);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .choice .radio::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: #c7d3bd;
+    transform: scale(0);
+    transition: transform 0.2s;
+  }
+  .choice.active { border-color: #c7d3bd; background: rgba(199,211,189,0.06); }
+  .choice.active .radio::after { transform: scale(1); }
+  .choice .ttl {
+    font-family: var(--display);
+    font-size: 24px;
+    line-height: 1;
+  }
+  .choice .desc {
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(246,241,231,0.55);
+    margin-top: 4px;
+  }
+  .choice .col { display: grid; gap: 2px; }
+
+  .rsvp-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(246,241,231,0.3);
+    padding: 10px 2px 12px;
+    color: var(--ivory);
+    font-family: var(--display);
+    font-size: 22px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .rsvp-input:focus { border-bottom-color: #c7d3bd; }
+  .rsvp-input::placeholder { color: rgba(246,241,231,0.4); font-style: italic; }
+
+  .rsvp-submit {
+    margin-top: 12px;
+    background: var(--ivory);
+    color: var(--ink);
+    border: 1px solid var(--ivory);
+    padding: 18px 32px;
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    justify-self: center;
+  }
+  .rsvp-submit:hover { background: #c7d3bd; border-color: #c7d3bd; color: var(--ink); }
+  .rsvp-submit:disabled {
+    background: transparent;
+    color: rgba(246,241,231,0.4);
+    border-color: rgba(246,241,231,0.25);
+    cursor: not-allowed;
+  }
+
+  .rsvp-thanks {
+    text-align: center;
+    padding: 40px 0;
+  }
+  .rsvp-thanks .check {
+    width: 64px; height: 64px;
+    border: 1px solid #c7d3bd;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    margin: 0 auto 28px;
+    color: #c7d3bd;
+    font-family: var(--display);
+    font-size: 30px;
+  }
+  .rsvp-thanks h3 {
+    font-family: var(--display);
+    font-size: 48px;
+    font-weight: 400;
+    margin: 0 0 12px;
+  }
+  .rsvp-thanks .it { font-style: italic; color: #c7d3bd; }
+  .rsvp-thanks p { color: rgba(246,241,231,0.75); font-size: 17px; }
+  .rsvp-thanks button {
+    margin-top: 28px;
+    background: transparent;
+    color: var(--ivory);
+    border: 1px solid rgba(246,241,231,0.4);
+    padding: 12px 22px;
+    font-family: var(--ui);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 60px 32px;
+    color: var(--ink-faint);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 18px;
+    background: var(--ivory);
+  }
+  footer .small {
+    margin-top: 10px;
+    font-family: var(--ui);
+    font-style: normal;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* Responsive */
+  @media (max-width: 1040px) {
+    .story, .venue, .dress { grid-template-columns: 1fr; gap: 48px; }
+    .stays, .registry { grid-template-columns: 1fr; }
+    .schedule .row { grid-template-columns: 110px 1fr; }
+    .schedule .loc { grid-column: 1 / -1; text-align: left; padding-left: 0; }
+    section.block { padding: 80px 24px; }
+    .section-head h2 { font-size: 44px; }
+    .login-card { padding: 48px 28px 40px; }
+    .couple { font-size: 56px; }
+    .nav-inner { padding: 14px 20px; }
+    .nav-links { gap: 0; }
+    .nav-link { padding: 8px 8px; font-size: 10px; letter-spacing: 0.2em; }
+    .nav-rsvp { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef, useCallback } = React;
+
+const SECTIONS = [
+  { id: "home",     label: "Home" },
+  { id: "story",    label: "Our Story" },
+  { id: "schedule", label: "Schedule" },
+  { id: "venue",    label: "Venue" },
+  { id: "stay",     label: "Stays" },
+  { id: "dress",    label: "Dress Code" },
+  { id: "registry", label: "Registry" },
+  { id: "rsvp",     label: "RSVP" },
+];
+
+/* ---------------- Login ---------------- */
+function Login({ onLogin }) {
+  const [firstName, setFirstName] = useState("");
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
+
+  function submit(e) {
+    e.preventDefault();
+    if (!firstName.trim() || !code.trim()) {
+      setError("Please enter your first name and invite code.");
+      return;
+    }
+    onLogin({ firstName: firstName.trim(), code: code.trim() });
+  }
+
+  return (
+    <div className="login-wrap" data-screen-label="01 Login">
+      <div className="login-card">
+        <div className="ornament">
+          <span className="line" />
+          <span className="dot" />
+          <span className="line" />
+        </div>
+        <div className="welcome">You are warmly invited</div>
+        <h1 className="couple">John<span className="amp">&amp;</span>Jane</h1>
+        <div className="when">are getting married</div>
+        <div className="where">Saturday · September 19, 2026</div>
+
+        <div className="divider-row">
+          <span className="rule" />
+          <span className="label">Guest sign-in</span>
+          <span className="rule" />
+        </div>
+
+        <form className="login-form" onSubmit={submit}>
+          <div className="field">
+            <label htmlFor="firstName">First name</label>
+            <input
+              id="firstName"
+              type="text"
+              value={firstName}
+              onChange={(e) => { setFirstName(e.target.value); setError(""); }}
+              placeholder="As it appears on your invitation"
+              autoComplete="given-name"
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="code">Invite code</label>
+            <input
+              id="code"
+              type="text"
+              value={code}
+              onChange={(e) => { setCode(e.target.value.toUpperCase()); setError(""); }}
+              placeholder="e.g. ROSE-2026"
+              autoCapitalize="characters"
+            />
+          </div>
+
+          {error && <div className="login-error">{error}</div>}
+
+          <button type="submit" className="btn full">Sign in</button>
+        </form>
+
+        <div className="hint">Lost your code? Email us at <em>hello@johnandjane.wedding</em></div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- Navbar ---------------- */
+function Navbar({ active, onJump, guestName, onLogout }) {
+  return (
+    <header className="nav" data-screen-label="Navbar">
+      <div className="nav-inner">
+        <div className="nav-brand">
+          J<span className="amp"> &amp; </span>J
+        </div>
+        <nav className="nav-links">
+          {SECTIONS.filter(s => s.id !== "rsvp").map((s) => (
+            <button
+              key={s.id}
+              className={"nav-link" + (active === s.id ? " active" : "")}
+              onClick={() => onJump(s.id)}
+            >
+              {s.label}
+            </button>
+          ))}
+          <button className="nav-rsvp" onClick={() => onJump("rsvp")}>RSVP</button>
+          <button className="nav-logout" onClick={onLogout} title="Sign out">Sign out</button>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+/* ---------------- Sections ---------------- */
+function Hero({ guestName }) {
+  return (
+    <section id="home" className="block" data-screen-label="02 Hero" style={{ paddingTop: 60 }}>
+      <div className="hero">
+        <div className="eyebrow">Together with their families</div>
+        <h1 className="couple-big">John<span className="amp">&amp;</span>Jane</h1>
+        <div className="section-rule">
+          <span className="line" />
+          <span className="diamond" />
+          <span className="line" />
+        </div>
+        <div className="meta">
+          <span>Saturday</span>
+          <span className="dot" />
+          <span>September 19, 2026</span>
+          <span className="dot" />
+          <span>Hudson Valley, NY</span>
+        </div>
+      </div>
+      <div className="hero-image">
+        <div className="image-placeholder hero-ph">[ engagement photo · 16 : 9 ]</div>
+      </div>
+    </section>
+  );
+}
+
+function SectionHead({ eyebrow, title, italic, sub }) {
+  return (
+    <div className="section-head">
+      <div className="eyebrow">{eyebrow}</div>
+      <h2>{title} {italic && <span className="it">{italic}</span>}</h2>
+      <div className="section-rule">
+        <span className="line" />
+        <span className="diamond" />
+        <span className="line" />
+      </div>
+      {sub && <p className="sub">{sub}</p>}
+    </div>
+  );
+}
+
+function OurStory() {
+  return (
+    <section id="story" className="block" data-screen-label="03 Our Story">
+      <SectionHead eyebrow="Chapter One" title="Our" italic="story" />
+      <div className="story">
+        <div className="photo">
+          <div className="image-placeholder portrait">[ couple portrait · 3 : 4 ]</div>
+        </div>
+        <div className="copy">
+          <p>We met on a rainy Tuesday in a tiny café in Brooklyn. Jane was reading the same book John had just finished — the one with the dog-eared corners and coffee stains. Conversation followed; so did dinner.</p>
+          <p>Seven years, three apartments, and one very opinionated cat later, John proposed on a quiet ridge above the Hudson, just as the maples were turning. Jane said yes before he finished the sentence.</p>
+          <p>We are so glad you'll be there as we say the rest of it.</p>
+          <div className="sig">— John &amp; Jane</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Schedule() {
+  const rows = [
+    { time: "3:30 pm", title: "Welcome",         desc: "Arrival and pre-ceremony drinks on the lawn.", loc: "The Garden" },
+    { time: "4:00 pm", title: "Ceremony",        desc: "Vows beneath the old maple — please be seated by 3:50.", loc: "The Garden" },
+    { time: "4:45 pm", title: "Cocktail Hour",   desc: "Hors d'oeuvres, music, and a signal lawn game or two.", loc: "South Terrace" },
+    { time: "6:00 pm", title: "Dinner & Toasts", desc: "A long table, family-style.", loc: "The Barn" },
+    { time: "8:00 pm", title: "Dancing",         desc: "Until the lights go down and the candles burn low.", loc: "The Barn" },
+    { time: "11:00 pm", title: "Send-off",       desc: "Sparklers and a slow drive home.", loc: "The Lane" },
+  ];
+  return (
+    <section id="schedule" className="block" data-screen-label="04 Schedule">
+      <SectionHead eyebrow="The day of" title="The" italic="schedule" sub="A loose plan for September 19. Times approximate — the day will take its own shape." />
+      <div className="schedule">
+        {rows.map((r) => (
+          <div key={r.title} className="row">
+            <div className="time">{r.time}</div>
+            <div className="what">
+              <h4>{r.title}</h4>
+              <p>{r.desc}</p>
+            </div>
+            <div className="loc">{r.loc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Venue() {
+  return (
+    <section id="venue" className="block" data-screen-label="05 Venue">
+      <SectionHead eyebrow="Where to find us" title="The" italic="venue" />
+      <div className="venue">
+        <div>
+          <div className="image-placeholder square">[ venue exterior · 1 : 1 ]</div>
+        </div>
+        <div>
+          <h3>Hollow Maple Farm</h3>
+          <div className="addr">412 Old Mill Road, Rhinebeck, NY</div>
+          <p>A working orchard turned wedding farm, about 100 miles north of Manhattan. Ceremony and reception are on the same grounds; please wear shoes friendly to grass.</p>
+
+          <div className="travel-list">
+            <div className="item">
+              <div className="k">By Car</div>
+              <div className="v">~2 hr from NYC. Free on-site parking. Overnight cars permitted until noon Sunday.</div>
+            </div>
+            <div className="item">
+              <div className="k">By Train</div>
+              <div className="v">Amtrak Empire Service to Rhinecliff (RHI). Shuttles will run to/from the venue.</div>
+            </div>
+            <div className="item">
+              <div className="k">By Air</div>
+              <div className="v">Closest airports: ALB (60 min), HPN (90 min), JFK / LGA / EWR (2 hr+).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Stays() {
+  const items = [
+    { tag: "Room block", name: "The Beekman House", rate: "From $245 / night", dist: "8 min to venue", desc: "A converted 1820s inn with twelve rooms and a very good breakfast. Use code JJ2026 by Aug 15." },
+    { tag: "Boutique",   name: "Maplewood Lodge",    rate: "From $310 / night", dist: "12 min to venue", desc: "Larger property with a pool and full bar. Family rooms available. No code required." },
+    { tag: "Budget",     name: "Rhinebeck Motor Inn", rate: "From $129 / night", dist: "5 min to venue",  desc: "Clean, simple, and an easy walk from the village. Limited rooms — book early." },
+  ];
+  return (
+    <section id="stay" className="block" data-screen-label="06 Stays">
+      <SectionHead eyebrow="Where to sleep" title="Accommodations" sub="Three nearby options, blocked or recommended for our guests." />
+      <div className="stays">
+        {items.map((s) => (
+          <div key={s.name} className="stay">
+            <div className="image-placeholder ph">[ {s.name.toLowerCase()} ]</div>
+            <div className="tag">{s.tag}</div>
+            <h4>{s.name}</h4>
+            <p>{s.desc}</p>
+            <div className="meta">
+              <span>{s.dist}</span>
+              <span className="rate">{s.rate}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function DressCode() {
+  return (
+    <section id="dress" className="dress-band" data-screen-label="07 Dress Code">
+      <div className="dress">
+        <div>
+          <div className="eyebrow">A note on attire</div>
+          <h3>Garden <span className="it">formal</span></h3>
+          <p>Cocktail dresses, suits, jumpsuits — anything you'd wear to a dressy garden party. Block heels recommended; the ceremony is on grass. Cooler in the evening — a wrap or jacket is wise.</p>
+          <p style={{ fontStyle: "italic", color: "var(--ink-faint)", fontSize: 15, marginTop: 16 }}>
+            Suggested palette below — for inspiration, not obligation.
+          </p>
+        </div>
+        <div>
+          <div className="palette">
+            <div className="swatch" style={{ background: "#7a8a72" }}><span>sage</span></div>
+            <div className="swatch" style={{ background: "#d8c9a8" }}><span>oat</span></div>
+            <div className="swatch" style={{ background: "#c8a984" }}><span>fawn</span></div>
+            <div className="swatch" style={{ background: "#8a6a5a" }}><span>clay</span></div>
+            <div className="swatch" style={{ background: "#3d3a36" }}><span>ink</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Registry() {
+  const items = [
+    { mark: "i", name: "Our Home", desc: "A small list at Crate & Barrel — kitchen things, mostly." },
+    { mark: "ii", name: "Honeymoon Fund", desc: "We're saving for two weeks in southern Italy." },
+    { mark: "iii", name: "A Local Cause", desc: "If you'd rather, give in our names to the Hudson Valley Food Bank." },
+  ];
+  return (
+    <section id="registry" className="block tight" data-screen-label="08 Registry">
+      <SectionHead eyebrow="With gratitude" title="The" italic="registry" sub="Your presence is the only present we need. If you'd like to do more, a few gentle options." />
+      <div className="registry">
+        {items.map((r) => (
+          <div key={r.name} className="reg-card">
+            <div className="mark">{r.mark}</div>
+            <h4>{r.name}</h4>
+            <p>{r.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- RSVP ---------------- */
+function RSVP({ guestName }) {
+  const [attending, setAttending] = useState(null); // "yes" | "no"
+  const [diet, setDiet] = useState("none");         // "none" | "vegetarian" | "vegan"
+  const [song, setSong] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  function submit(e) {
+    e.preventDefault();
+    if (!attending) return;
+    setSubmitted(true);
+  }
+
+  if (submitted) {
+    return (
+      <section id="rsvp" className="rsvp-band" data-screen-label="09 RSVP">
+        <div className="rsvp">
+          <div className="rsvp-thanks">
+            <div className="check">✓</div>
+            <h3>Thank you, <span className="it">{guestName}</span></h3>
+            <p>
+              {attending === "yes"
+                ? "We can't wait to celebrate with you on September 19."
+                : "We'll miss you — thank you for letting us know. We'll raise a glass in your honor."}
+            </p>
+            <button onClick={() => setSubmitted(false)}>Edit response</button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="rsvp" className="rsvp-band" data-screen-label="09 RSVP">
+      <div className="section-head">
+        <div className="eyebrow">Kindly reply</div>
+        <h2><span style={{color:"#fff"}}>R</span><span className="it">S</span><span style={{color:"#fff"}}>V</span><span className="it">P</span></h2>
+        <div className="section-rule">
+          <span className="line" />
+          <span className="diamond" />
+          <span className="line" />
+        </div>
+        <p className="sub">By August 15, 2026.</p>
+      </div>
+
+      <form className="rsvp" onSubmit={submit}>
+        <div className="rsvp-greeting">Hello, {guestName} —</div>
+
+        <div className="q">
+          <div className="q-label">Will you join us?</div>
+          <div className="choice-row">
+            <button type="button" className={"choice" + (attending === "yes" ? " active" : "")} onClick={() => setAttending("yes")}>
+              <span className="radio" />
+              <div className="col">
+                <span className="ttl">Joyfully accepts</span>
+                <span className="desc">I'll be there</span>
+              </div>
+            </button>
+            <button type="button" className={"choice" + (attending === "no" ? " active" : "")} onClick={() => setAttending("no")}>
+              <span className="radio" />
+              <div className="col">
+                <span className="ttl">Regretfully declines</span>
+                <span className="desc">Can't make it</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {attending === "yes" && (
+          <>
+            <div className="q">
+              <div className="q-label">Dietary preference</div>
+              <div className="q-help">So we can plan the table accordingly.</div>
+              <div className="choice-row">
+                {[
+                  { id: "none", ttl: "No restrictions", desc: "All courses, please" },
+                  { id: "vegetarian", ttl: "Vegetarian", desc: "No meat or fish" },
+                  { id: "vegan", ttl: "Vegan", desc: "Plant-based" },
+                ].map((d) => (
+                  <button key={d.id} type="button" className={"choice" + (diet === d.id ? " active" : "")} onClick={() => setDiet(d.id)}>
+                    <span className="radio" />
+                    <div className="col">
+                      <span className="ttl">{d.ttl}</span>
+                      <span className="desc">{d.desc}</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="q">
+              <div className="q-label">Your favorite song</div>
+              <div className="q-help">Something to fill the dance floor — we're building the playlist.</div>
+              <input
+                className="rsvp-input"
+                type="text"
+                value={song}
+                onChange={(e) => setSong(e.target.value)}
+                placeholder="Artist — Title"
+              />
+            </div>
+          </>
+        )}
+
+        <button type="submit" className="rsvp-submit" disabled={!attending}>Send RSVP</button>
+      </form>
+    </section>
+  );
+}
+
+/* ---------------- Main app ---------------- */
+function MainSite({ guestName, onLogout }) {
+  const [active, setActive] = useState("home");
+
+  const jump = useCallback((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const nav = document.querySelector(".nav");
+    const offset = (nav ? nav.offsetHeight : 0) + 8;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }, []);
+
+  // Scroll spy
+  useEffect(() => {
+    const ids = SECTIONS.map(s => s.id);
+    function onScroll() {
+      const navH = (document.querySelector(".nav")?.offsetHeight || 60) + 20;
+      let current = ids[0];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top - navH <= 0) current = id;
+      }
+      setActive(current);
+    }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <>
+      <Navbar active={active} onJump={jump} guestName={guestName} onLogout={onLogout} />
+      <Hero guestName={guestName} />
+      <OurStory />
+      <Schedule />
+      <Venue />
+      <Stays />
+      <DressCode />
+      <Registry />
+      <RSVP guestName={guestName} />
+      <footer>
+        <div>John &amp; Jane · September 19, 2026</div>
+        <div className="small">With love, from Hudson Valley</div>
+      </footer>
+    </>
+  );
+}
+
+function App() {
+  const [guest, setGuest] = useState(null);
+  return guest
+    ? <MainSite guestName={guest.firstName} onLogout={() => setGuest(null)} />
+    : <Login onLogin={setGuest} />;
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+</script>
+
+</body>
+</html>

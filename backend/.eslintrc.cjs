@@ -9,6 +9,6 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/no-namespace': 'off',
+    '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }],
   },
 }
